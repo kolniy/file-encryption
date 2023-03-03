@@ -21,4 +21,19 @@ const encryptData = () => {
   console.log("Encrypted message: " + encryptedData);
 };
 
+const decryptData = () => {
+  // the decipher function
+  const fileContentToBeDecrypted = fs.readFileSync("./encryptedData.txt");
+  const messageToBeDecrpted = fileContentToBeDecrypted.toString();
+
+  const decipher = crypto.createDecipheriv(algorithm, securityKey, initVector);
+
+  let decryptedData = decipher.update(messageToBeDecrpted, "hex", "utf-8");
+
+  decryptedData += decipher.final("utf8");
+
+  console.log("Decrypted message: " + decryptedData);
+};
+
 encryptData();
+decryptData();
